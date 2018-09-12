@@ -1,7 +1,7 @@
 <template>
     <div class="week-weather-wind" >
-        <div class="wind">{{windStr}}</div>
-        <div class="wind" v-if="item.windpower" >{{windLevel}}</div>
+        <div class="wind">{{item.winddirect}}</div>
+        <div class="wind" v-if="item.windpower" >{{item.windpower}}</div>
         <div class="wind" v-else></div>
     </div>
 </template>
@@ -35,6 +35,7 @@ export default {
 
 <style lang="less" scoped>
 .week-weather-wind {
+  font-size: 26rpx;
   display: flex;
   flex-direction: column;
 }

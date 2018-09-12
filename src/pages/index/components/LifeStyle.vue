@@ -5,7 +5,7 @@
                 <span class="logo" ><text :class="item.icon" /> </span>
                 <span class="name" >{{item.iname}}</span>
             </div>
-            <div class="content">{{item.ivalue}}</div>
+            <div class="content">{{item.ivalue || '暂无'}}</div>
         </div>
     </div>
 </template>

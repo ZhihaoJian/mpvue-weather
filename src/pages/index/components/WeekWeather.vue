@@ -13,8 +13,9 @@
                     <span class="logo"><img :src="item.nightIcon" /></span>
                     <div class="wt" >{{item.night.templow}}°</div>
                 </div>
-                <week-weather-wind :item="item" />
+                <week-weather-wind :item="item.day" />
             </div>
+            <div class="custom-chart" ><chart :weekData="dailyForcast" /></div> 
         </div>
     </div>    
 </template>
@@ -22,6 +23,7 @@
 <script>
 // 一周天气数据
 import { wind, windLevel, formatDate, formatWeeklyDate } from "@/utils/index";
+import Chart from "./Chart";
 import { getIcon } from "@/utils/weather";
 import WeekWeatherWind from "./WeekWeather-wind";
 export default {
@@ -30,23 +32,24 @@ export default {
     dailyForcast: Array
   },
   components: {
-    WeekWeatherWind
+    WeekWeatherWind,
+    Chart
   },
   computed: {
     weeklyData() {
       const weekData = [];
-        for (let i = 0; i < this.dailyForcast.length; i++) {
-          const item = this.dailyForcast[i];
-          const { date, week, night, day } = item;
-          weekData.push({
-            date: formatDate(date),
-            week: formatWeeklyDate(i, week),
-            day,
-            night,
-            dayIcon: getIcon(day.img),
-            nightIcon: getIcon(night.img)
-          });
-        }
+      for (let i = 0; i < this.dailyForcast.length; i++) {
+        const item = this.dailyForcast[i];
+        const { date, week, night, day } = item;
+        weekData.push({
+          date: formatDate(date),
+          week: formatWeeklyDate(i, week),
+          day,
+          night,
+          dayIcon: getIcon(day.img),
+          nightIcon: getIcon(night.img)
+        });
+      }
       return weekData;
     }
   }
@@ -65,6 +68,17 @@ export default {
   .week-weather {
     display: flex;
     flex-wrap: nowrap;
+    position: relative;
+    overflow: hidden;
+
+    .custom-chart {
+      position: absolute;
+      z-index: 0;
+      top: 50%;
+      transform: translateY(-35%);
+      width: 750rpx;
+      height: 80%;
+    }
   }
   .item {
     width: 107rpx;
@@ -74,6 +88,7 @@ export default {
       font-size: 26rpx;
     }
     .date-time {
+      padding-bottom: 100%;
       .wt {
         margin: 18rpx 0;
       }
