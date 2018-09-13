@@ -39,7 +39,7 @@ export default {
         minData
       };
     },
-    initChart(canvas, width, height = 200) {
+    initChart(canvas, width, height = 150) {
       const chart = echarts.init(canvas, null, {
         width: width,
         height: height

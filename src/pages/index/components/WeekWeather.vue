@@ -75,9 +75,9 @@ export default {
       position: absolute;
       z-index: 0;
       top: 50%;
-      transform: translateY(-35%);
+      transform: translateY(-40%);
       width: 750rpx;
-      height: 80%;
+      height: 70%;
     }
   }
   .item {
