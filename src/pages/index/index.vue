@@ -3,6 +3,7 @@
     <div v-if="hasData">
       <div class='container' id='canvas-wrapper' >
         <!-- 实时天气模块 -->
+        <canvas canvas-id='effect' id='effect' ></canvas>
         <now-weather 
           :air='air' 
           :now='now' 
@@ -37,7 +38,7 @@ import Hourly from "./components/Hourly";
 import LifeStyle from "./components/LifeStyle";
 import WeekWeather from "./components/WeekWeather";
 import FooterComponent from "./components/Footer";
-import { getWeather } from "@/utils/weather";
+import { getWeather, RainEffect } from "@/utils/weather";
 import { wx_getLocation } from "@/utils/wx";
 
 export default {
@@ -94,10 +95,25 @@ export default {
           self.updateWeatherData(data);
         });
       });
+
+      return this;
+    },
+    //绘制雨天效果
+    openEffect() {
+      const canvasid = "effect";
+      const ctx = wx.createCanvasContext(canvasid);
+      const width = 350;
+      let height = 768 / 2 * 0.3;
+      let rain = new RainEffect(ctx, width, height, {
+        amount: 100,
+        speedFactor: 0.03
+      });
+      rain.run();
     }
   },
   mounted() {
     this.getLocation();
+    // this.openEffect
   },
   onPullDownRefresh() {
     const { lat, lng } = this.$store.state;
@@ -120,7 +136,7 @@ export default {
   background-position: center center;
   background-color: @bgColor;
   background-size: cover;
-  min-height:100vh;
+  min-height: 100vh;
 
   .container {
     position: relative;
@@ -128,6 +144,16 @@ export default {
     min-width: 750rpx;
     box-sizing: border-box;
     color: #fff;
+
+    #effect {
+      width: 750rpx;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1;
+    }
   }
 
   .weather {
