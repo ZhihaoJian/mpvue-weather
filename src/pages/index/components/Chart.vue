@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import * as echarts from 'echarts/dist/echarts.simple.min'
+import * as echarts from "echarts/dist/echarts.simple.min";
 import mpvueEcharts from "mpvue-echarts";
 
 export default {
@@ -68,25 +68,42 @@ export default {
             name: "最高气温",
             type: "line",
             smooth: true,
+            label: {
+              show: true,
+              color: "#fff",
+              fontSize:14,
+              formatter:function({value}){
+                return `${value}°`
+              }
+            },
             itemStyle: {
               color: "#f7a94b"
             },
             lineStyle: {
               color: "#f7a94b",
-              width:3
+              width: 3
             },
             data: data.maxData
           },
           {
             name: "最低气温",
             type: "line",
+            label: {
+              show: true,
+              position: "bottom",
+              fontSize:14,
+              color: "#fff",
+              formatter:function({value}){
+                return `${value}°`
+              }
+            },
             itemStyle: {
               color: "#6dacd9"
             },
             smooth: true,
             lineStyle: {
               color: "#6dacd9",
-              width:3
+              width: 3
             },
             data: data.minData
           }

@@ -85,10 +85,10 @@ export default {
     padding: 0 6rpx;
     .date {
       margin: 16rpx 0;
-      font-size: 26rpx;
+      font-size: 22rpx;
     }
     .date-time {
-      padding-bottom: 100%;
+      margin-bottom: 200rpx;
       .wt {
         margin: 18rpx 0;
       }
