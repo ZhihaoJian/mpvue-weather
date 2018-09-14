@@ -17,7 +17,7 @@
                 </div>
                 <week-weather-wind :item="item" />
             </div>
-            <div class="custom-chart" ><chart :weekData="dailyForcast" /></div> 
+            <div class="custom-chart" v-if="dailyForcast.length > 0" ><chart :weekData="dailyForcast" /></div> 
         </div>
     </div>    
 </template>
@@ -28,7 +28,7 @@ import { wind, windLevel, formatDate, formatWeeklyDate } from "@/utils/index";
 import Chart from "./Chart";
 import { getIcon } from "@/utils/weather";
 import WeekWeatherWind from "./WeekWeather-wind";
-import Icon from '@/components/Icon';
+import Icon from "@/components/Icon";
 export default {
   name: "WeekWeather",
   props: {
@@ -69,7 +69,7 @@ export default {
   font-size: 28rpx;
   text-align: center;
   padding: 40rpx 0;
-  min-height: 710rpx;
+  // min-height: 720rpx;
   background-color: @card-bg-color;
 
   .week-weather {
@@ -80,11 +80,10 @@ export default {
 
     .custom-chart {
       position: absolute;
-      z-index: 0;
-      top: 50%;
-      transform: translateY(-40%);
-      width: 750rpx;
-      height: 440rpx;
+      top: 50px;
+      bottom:50px;
+      width: 100%;
+      height: 600rpx;
     }
   }
   .item {
@@ -95,7 +94,7 @@ export default {
       font-size: 22rpx;
     }
     .date-time {
-      margin-bottom: 200rpx;
+      margin-bottom: 250rpx;
       .wt {
         margin: 18rpx 0;
       }

@@ -16,8 +16,12 @@ export default {
   data() {
     return {
       echarts,
-      onInit: this.initChart
+      onInit: this.initChart,
+      fontSize: 14
     };
+  },
+  mounted() {
+    this.formatFontSize();
   },
   components: { mpvueEcharts },
   methods: {
@@ -39,6 +43,16 @@ export default {
         maxData,
         minData
       };
+    },
+    formatFontSize() {
+      const self = this;
+      wx.getSystemInfo({
+        success: ({ windowWidth }) => {
+          if (windowWidth <= 320) {
+            self.fontSize = 11;
+          }
+        }
+      });
     },
     initChart(canvas, width, height = 150) {
       const chart = echarts.init(canvas, null, {
@@ -72,7 +86,7 @@ export default {
             label: {
               show: true,
               color: "#fff",
-              fontSize: 14,
+              fontSize: this.fontSize,
               formatter: function({ value }) {
                 return `${value}°`;
               }
@@ -92,7 +106,7 @@ export default {
             label: {
               show: true,
               position: "bottom",
-              fontSize: 14,
+              fontSize: this.fontSize,
               color: "#fff",
               formatter: function({ value }) {
                 return `${value}°`;
