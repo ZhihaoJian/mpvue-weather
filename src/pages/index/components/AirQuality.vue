@@ -1,7 +1,7 @@
 <template>
-    <div class="air-quality" v-if="air.aqi" >
+    <div class="air-quality" v-if="air.city.aqi" >
         <span class="circle" :style="{backgroundColor:aqiColor}" ></span>
-        <span class="value">{{air.quality}} {{air.aqi}}</span>
+        <span class="value">{{air.city.qlty}} {{air.city.aqi}}</span>
     </div>
 </template>
 
@@ -15,7 +15,7 @@ export default {
   },
   computed: {
     airColor() {
-      const aqi = this.air.aqi;
+      const aqi = this.air.city.aqi;
       if (aqi >= 0 && aqi <= 50) {
         this.aqiColor = "#02cb9a";
       } else if (aqi > 50 && aqi <= 100) {
@@ -35,7 +35,7 @@ export default {
   background: rgba(0, 0, 0, 0.1);
   border-radius: 10rpx;
   left: 20rpx;
-  top: auto;
+  top: 140rpx;
   height: 28rpx;
   line-height: 28rpx;
   padding: 16rpx 20rpx;

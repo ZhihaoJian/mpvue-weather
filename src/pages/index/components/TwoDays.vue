@@ -3,21 +3,23 @@
         <div class="item">
             <div class="top">
                 <span class="date">今天</span>
-                <span class="temp">{{ today.night.templow }}/{{ today.day.temphigh }}°</span>
+                <span class="temp">{{ today.tmp.min }}/{{ today.tmp.max }}°</span>
             </div>
             <div class="bottom">
-                <span>{{ today.day.weather }}</span>
-                <span class="logo"  ><img :src="todayIcon" /> </span>
+                <span>{{ today.cond.txt_d }}</span>
+                <!-- <span class="logo"  ><img :src="todayIcon" /> </span> -->
+                <span class="logo"> <icon :type='todayIcon' /> </span>
             </div>
         </div>
         <div class="item">
             <div class="top">
                 <span class="date">明天</span>
-                <span class="temp">{{ tomorrow.night.templow }}/{{ tomorrow.day.temphigh }}°</span>
+                <span class="temp">{{ tomorrow.tmp.min }}/{{ tomorrow.tmp.max }}°</span>
             </div>
             <div class="bottom">
-                <span>{{ tomorrow.day.weather }}</span>
-                <span class="logo" ><img :src="tomorrowIcon" /> </span>
+                <span>{{ tomorrow.cond.txt_d }}</span>
+                <!-- <span class="logo" ><img :src="tomorrowIcon" /> </span> -->
+                <span class="logo"><icon :type='tomorrowIcon' /></span>
             </div>
         </div>
     </div>
@@ -43,8 +45,8 @@ export default {
   methods: {
     getWeatherIcon() {
       if (this.df.length > 0) {
-        this.todayIcon = getIcon(this.today.day.img);
-        this.tomorrowIcon = getIcon(this.tomorrow.day.img);
+        this.todayIcon = getIcon(this.today.cond.code_d);
+        this.tomorrowIcon = getIcon(this.tomorrow.cond.code_d);
       }
     }
   },

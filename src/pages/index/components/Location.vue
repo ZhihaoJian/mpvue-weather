@@ -1,6 +1,6 @@
 <template>
     <div class="location" @click.prevent="handleChooseLocation" >
-        <text class="icon icon-dingwei" ></text>
+        <text class="iconfont icon-location" ></text>
         <text>{{location}}</text>
     </div>
 </template>
@@ -83,8 +83,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../../assests/font/icon.css";
-@import "../../../assests/font/weather-icon.css";
+@import '~@/assests/font/iconfont.css';
 
 .location {
   text-align: center;

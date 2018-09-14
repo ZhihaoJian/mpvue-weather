@@ -7,19 +7,20 @@
         <air-quality :air="air"/>
         <div class="now-weather">
             <div class="temp"  >
-                <span class="num" >{{now.temp}}</span>
+                <span class="num" >{{now.tmp}}</span>
                 <span class="degree">°</span>
             </div>
         </div>
         <div class="cur-weather">
             <div class="line">
-                <span class="logo"  ><img :src="nowIcon" /></span> 
-                <span>{{now.weather}}</span>
+                <!-- <span class="logo"  ><img :src="nowIcon" /></span>  -->
+                <span class="logo"><icon :type="nowIcon" /></span>
+                <span>{{now.cond.txt}}</span>
             </div>
         </div>
         <div class="inline today">
             <p class="item">{{ humidity }}</p>
-            <p class="item">{{now.winddirect}} {{now.windpower}}</p>
+            <p class="item">{{now.wind.dir}} {{now.wind.sc}}级</p>
         </div>
         <div class="tips">
             <p>天气太热了，吃个西瓜~</p>
@@ -65,13 +66,13 @@ export default {
       this.$emit("changeWeather", newWeather);
     },
     getNowWeatherIcon() {
-      if (this.now.img) {
-        this.nowIcon = getIcon(this.now.img);
+      if (this.now.cond.code) {
+        this.nowIcon = getIcon(this.now.cond.code);
       }
       return this;
     },
     getHumidity() {
-      this.humidity = humidity(this.now.humidity);
+      this.humidity = humidity(this.now.hum);
       return this;
     },
     //  修正顶部定位的自适应
@@ -86,7 +87,7 @@ export default {
       return this;
     }
   },
-  mounted(){
+  mounted() {
     this.getStatusHeaderBar()
       .getNowWeatherIcon()
       .getHumidity();
@@ -153,12 +154,17 @@ export default {
       img {
         width: @icon-size;
         height: @icon-size;
+        vertical-align: bottom;
       }
     }
     span {
       vertical-align: middle;
       &:first-child {
         margin-right: 8rpx;
+      }
+      &:last-child{
+        vertical-align: bottom;
+        height: 100%;
       }
     }
   }

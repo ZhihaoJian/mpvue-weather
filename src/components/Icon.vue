@@ -1,5 +1,5 @@
 <template>
-  <img class="img" :src="imgSrc" />
+  <text :class="imgSrc"  />
 </template>
 
 <script>
@@ -8,20 +8,24 @@ export default {
   props: ["type"],
   data() {
     return {
-      imgSrc: `https://cdn.heweather.com/cond_icon/${this.type}.png`
+      imgSrc: `iconfont img icon-${this.type}`
     };
+  },
+  watch:{
+    type(newval){
+      this.imgSrc = `iconfont img icon-${newval}`
+    }
   }
 };
 </script>
 
 <style lang="css" scoped>
+@import "~@/assests/font/iconfont.css";
 
 .img {
-  width: 50rpx;
-  height: 50rpx;
+  font-size: 40rpx;
   vertical-align: middle;
 }
-
 </style>
 
 

@@ -1,19 +1,21 @@
 <template>
-    <div class="week">
+    <div class="week" >
         <div class="week-weather">
             <div class="item" v-for="(item,index) of weeklyData" :key="index" >
                 <div class="day">{{item.week}}</div>
                 <div class="date">{{item.date}}</div>
-                <div>{{item.weather}}</div>
+                <!-- <div>{{item.txt_d}}</div> -->
                 <div class="date-time">
-                    <div class="wt">{{item.day.temphigh}}°</div>
-                    <span class="logo"><img :src="item.dayIcon" /></span>
+                    <div class="wt">{{item.txt_d}}</div>
+                    <!-- <span class="logo"><img :src="item.dayIcon" /></span> -->
+                    <span class="logo"><icon :type='item.dayIcon' /></span>
                 </div>
                 <div class="night">
-                    <span class="logo"><img :src="item.nightIcon" /></span>
-                    <div class="wt" >{{item.night.templow}}°</div>
+                    <!-- <span class="logo"><img :src="item.nightIcon" /></span> -->
+                    <span class="logo"><icon :type='item.nightIcon' /></span>
+                    <div class="wt" >{{item.txt_n}}</div>
                 </div>
-                <week-weather-wind :item="item.day" />
+                <week-weather-wind :item="item" />
             </div>
             <div class="custom-chart" ><chart :weekData="dailyForcast" /></div> 
         </div>
@@ -26,6 +28,7 @@ import { wind, windLevel, formatDate, formatWeeklyDate } from "@/utils/index";
 import Chart from "./Chart";
 import { getIcon } from "@/utils/weather";
 import WeekWeatherWind from "./WeekWeather-wind";
+import Icon from '@/components/Icon';
 export default {
   name: "WeekWeather",
   props: {
@@ -33,21 +36,24 @@ export default {
   },
   components: {
     WeekWeatherWind,
-    Chart
+    Chart,
+    Icon
   },
   computed: {
     weeklyData() {
       const weekData = [];
       for (let i = 0; i < this.dailyForcast.length; i++) {
         const item = this.dailyForcast[i];
-        const { date, week, night, day } = item;
+        const { tmp, date, cond, wind } = item;
         weekData.push({
           date: formatDate(date),
-          week: formatWeeklyDate(i, week),
-          day,
-          night,
-          dayIcon: getIcon(day.img),
-          nightIcon: getIcon(night.img)
+          week: formatWeeklyDate(i, date),
+          txt_d: cond.txt_d,
+          txt_n: cond.txt_n,
+          tmp,
+          dayIcon: getIcon(cond.code_d),
+          nightIcon: getIcon(cond.code_n),
+          wind
         });
       }
       return weekData;
@@ -63,6 +69,7 @@ export default {
   font-size: 28rpx;
   text-align: center;
   padding: 40rpx 0;
+  min-height: 710rpx;
   background-color: @card-bg-color;
 
   .week-weather {
@@ -77,7 +84,7 @@ export default {
       top: 50%;
       transform: translateY(-40%);
       width: 750rpx;
-      height: 70%;
+      height: 440rpx;
     }
   }
   .item {

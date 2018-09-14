@@ -24,10 +24,10 @@ export function wind(code, level) {
 /**
  * 格式化日期 
  * @param {*} index 
- * @param {*} date 
+ * @param {*} week 
  */
 export function formatWeeklyDate(index, week) {
-  if (!index || !date) {
+  if (!index || !week) {
     console.error('Function formatWeeklyDate should have two arguments');
     // return;
   }
@@ -39,9 +39,34 @@ export function formatWeeklyDate(index, week) {
   } else if (index === 2) {
     return '后天'
   } else {
-    return week;
+    return  formatDay(new Date(week).getDay());
   }
 }
+
+/**
+ * 将0-6转化为对应的星期
+ * @param {number} day 
+ */
+function formatDay(day) {
+  switch (day) {
+    case 0:
+      return '星期天';
+    case 1:
+      return '星期一';
+    case 2:
+      return '星期二';
+    case 3:
+      return '星期三';
+    case 4:
+      return '星期四';
+    case 5:
+      return '星期五';
+    case 6:
+      return '星期六'
+  }
+}
+
+
 
 export function formatDate(time) {
   if (!time) {

@@ -1,9 +1,10 @@
 import { wx_showToast, wx_showLoading, wx_hideLoading } from './wx';
+import ICON_CONFIG from './icon-config';
 const IMAGE_PATH = '/static/weathercn02/';
 
-//极速Api
-let API_KEY = 'ac8eda7e34013a98';
-let API = `https://api.jisuapi.com/weather/query`;
+//京东万象Api
+let API_KEY = '24071203e3c6371a01a5bd4c94d9a583';
+let API = `https://way.jd.com/he/freeweather`;
 const STATUS_STOP = 'STOP';
 const STATUS_RUNNING = 'RUNNING';
 
@@ -12,13 +13,13 @@ export function getWeather(lat, lng) {
     wx_showLoading('加载天气中')
     return new Promise((resolve, reject) => {
         wx.request({
-            url: `${API}?appkey=${API_KEY}&location=${lat},${lng}`,
+            url: `${API}?appkey=${API_KEY}&city=${lat},${lng}`,
             success: function ({ data, statusCode }) {
                 wx_hideLoading();
-                if (statusCode === 200 && data.status === '0') {
-                    resolve(data.result);
+                if (statusCode === 200 && data.code === '10000') {
+                    resolve(data.result.HeWeather5[0]);
                 } else {
-                    wx_showToast('出现了点小问题,请稍后重试');
+                    wx_showToast(data.msg);
                     reject();
                 }
             },
@@ -37,7 +38,8 @@ export function getIcon(code) {
         console.warn('code should be a number or string');
         return null;
     }
-    return `${IMAGE_PATH}${parseInt(code)}.png`;
+    return ICON_CONFIG[code];
+    // return `${IMAGE_PATH}${parseInt(code)}.png`;
 }
 
 
@@ -57,7 +59,7 @@ class Particle {
     }
 
     _update() {
-        
+
     }
 
     _draw() {
@@ -131,7 +133,7 @@ export class RainEffect extends Particle {
         return this._update()
     }
 
-    _update(){
+    _update() {
         let { w, h } = this // 获取画布大小
         for (let ps = this.particles, i = 0; i < ps.length; i++) {
             // 开始下一个周期的位置计算

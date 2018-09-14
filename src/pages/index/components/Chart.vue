@@ -28,9 +28,10 @@ export default {
 
       if (this.weekData.length) {
         for (let item of this.weekData) {
-          dates.push(item.date);
-          maxData.push(item.day.temphigh);
-          minData.push(item.night.templow);
+          const { date, tmp } = item;
+          dates.push(date);
+          maxData.push(tmp.max);
+          minData.push(tmp.min);
         }
       }
       return {
@@ -71,9 +72,9 @@ export default {
             label: {
               show: true,
               color: "#fff",
-              fontSize:14,
-              formatter:function({value}){
-                return `${value}°`
+              fontSize: 14,
+              formatter: function({ value }) {
+                return `${value}°`;
               }
             },
             itemStyle: {
@@ -91,10 +92,10 @@ export default {
             label: {
               show: true,
               position: "bottom",
-              fontSize:14,
+              fontSize: 14,
               color: "#fff",
-              formatter:function({value}){
-                return `${value}°`
+              formatter: function({ value }) {
+                return `${value}°`;
               }
             },
             itemStyle: {

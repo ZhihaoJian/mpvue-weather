@@ -1,9 +1,9 @@
 <template>
   <div class='wrapper'  >
-    <div v-if="hasData">
+    <div v-if="hasData" >
       <div class='container' id='canvas-wrapper' >
         <!-- 实时天气模块 -->
-        <canvas canvas-id='effect' id='effect' ></canvas>
+        <!-- <canvas canvas-id='effect' id='effect' ></canvas> -->
         <now-weather 
           :air='air' 
           :now='now' 
@@ -27,7 +27,7 @@
         </div>
       </div>
       <!-- 页脚 -->
-      <footer-component :updateTime='now.updatetime' />
+      <footer-component :updateTime='basic.update.loc' />
     </div>
   </div>  
 </template>
@@ -46,6 +46,7 @@ export default {
   data() {
     return {
       address: "",
+      basic: {},
       air: {},
       now: {},
       dailyForcast: [],
@@ -66,19 +67,27 @@ export default {
     FooterComponent
   },
   methods: {
-    // 极速数据 天气API
-    // index --> 生活指数
+    // 京东万象 天气API
+    // suggestion --> 生活指数
     // aqi  ---> 实时空气质量检测
-    // daily --> 未来七天天气
-    // hourly --> 未来12H 天气
-    // restParam --> 实时天气等剩余参数
+    // daily_forecast --> 未来七天天气
+    // hourly_forecast --> 未来12H 天气
+    // now --> 实时天气
     updateWeatherData(data) {
-      const { index, aqi, daily, hourly, ...restParam } = data;
-      this.now = restParam;
+      const {
+        aqi,
+        basic,
+        daily_forecast,
+        hourly_forecast,
+        now,
+        suggestion
+      } = data;
+      this.now = now;
       this.air = aqi;
-      this.hourlyData = hourly.slice(1, 10);
-      this.dailyForcast = daily;
-      this.lifeStyle = index;
+      this.basic = basic;
+      this.hourlyData = hourly_forecast;
+      this.dailyForcast = daily_forecast;
+      this.lifeStyle = suggestion;
       this.hasData = true;
     },
     handleChangeWeather(data) {

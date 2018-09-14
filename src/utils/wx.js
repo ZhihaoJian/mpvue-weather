@@ -45,7 +45,6 @@ export function wx_getLocation(callback) {
  * 用户手动定位
  */
 export function wx_chooseLocation(callback) {
-    const self = this;
     wx.chooseLocation({
         success: function (data) {
             if (callback) {
@@ -53,7 +52,8 @@ export function wx_chooseLocation(callback) {
             }
         },
         fail: function () {
-            showToast("定位失败");
+            console.log('用户取消更换定位操作')
+            // wx_showToast("定位失败");
         }
     });
 }

@@ -3,7 +3,8 @@
         <div class="scrollX">
             <div class="item" v-for="(item,index) of hd" :key="index" >
                 <span class="time">{{item.time}}</span>
-                <span class="logo"><img :src="item.icon" /> </span>
+                <!-- <span class="logo"><img :src="item.icon" /> </span> -->
+                <span class="logo"><icon :type='item.icon' /> </span>
                 <span class="temp">{{item.temp}}°</span>
             </div>
         </div>
@@ -12,20 +13,30 @@
 
 <script>
 import { getIcon } from "@/utils/weather";
+import Icon from "@/components/Icon";
+
 // 未来24小时天气
 export default {
   name: "Hourly",
   props: {
     hourlyData: Array
   },
+  components: {
+    Icon
+  },
+  methods: {
+    formatTime(date) {
+      return date.split(" ")[1];
+    }
+  },
   computed: {
     hd() {
       const nhd = [];
       for (const item of this.hourlyData) {
         nhd.push({
-          time: item.time,
-          icon: getIcon(item.img),
-          temp: item.temp
+          time: this.formatTime(item.date),
+          icon: getIcon(item.cond.code),
+          temp: item.tmp
         });
       }
       return nhd;
