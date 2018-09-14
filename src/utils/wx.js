@@ -64,11 +64,13 @@ export function wx_chooseLocation(callback) {
  * @param {number} lng 通过wx.getLocation获取的纬度
  */
 export function getRealLocation(lat, lng, callback) {
+    wx_showLoading('定位中')
     return new Promise((resolve, reject) => {
         wx.request({
             url: `https://apis.map.qq.com/ws/geocoder/v1/?location=${lat},${lng}&key=${QQ_MAP_KEY}&get_poi=1`,
             success: function ({ data, statusCode }) {
                 if (statusCode === 200) {
+                    wx_hideLoading();
                     if (callback) {
                         callback(data.result);
                         resolve();

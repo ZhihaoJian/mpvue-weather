@@ -80,8 +80,8 @@ export default {
 
     .custom-chart {
       position: absolute;
-      top: 50px;
-      bottom:50px;
+      top: 135rpx;
+      // bottom:50px;
       width: 100%;
       height: 600rpx;
     }

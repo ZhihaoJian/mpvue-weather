@@ -39,7 +39,7 @@ import LifeStyle from "./components/LifeStyle";
 import WeekWeather from "./components/WeekWeather";
 import FooterComponent from "./components/Footer";
 import { getWeather, RainEffect } from "@/utils/weather";
-import { wx_getLocation } from "@/utils/wx";
+import { wx_getLocation, onShareAppMessage } from "@/utils/wx";
 
 export default {
   name: "index",
@@ -130,6 +130,22 @@ export default {
       this.updateWeatherData(data);
       wx.stopPullDownRefresh();
     });
+  },
+  //分享事件触发
+  onShareAppMessage({ from, target, webViewUrl }) {
+    if (this.hasData) {
+      const address = this.address;
+      const { lat, lng } = this.$store.state;
+      return {
+        title: `「${address}」现在天气情况，快打开看看吧！`,
+        path: `/page/index?lat=${lat}&lng=${lng}`
+      };
+    } else {
+      return {
+        title: "我发现一个好玩的天气小程序，分享给你看看！",
+        path: "/page/index"
+      };
+    }
   }
 };
 </script>
