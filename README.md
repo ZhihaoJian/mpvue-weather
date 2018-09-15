@@ -1,21 +1,17 @@
 # weather
 
-> A Mpvue project
+> 使用mpvue开发的天气app应用
 
-## Build Setup
+## CHANGE LOG
 
-``` bash
-# install dependencies
-npm install
+* 2018.9.14
+    - 天气实况开发完成
+    - 未来9小时天气实况开发完成
+    - 未来一周天气开发完成
+    - 本日生活指数开发完成
+    - 完成基本功能的开发，版本v1.0已发布
 
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+* 2018.9.15
+    - 优化小程序频繁调用 `setData` 所带来的渲染问题，从 `1546ms` 优化为 `634ms`
+    - 新增根据当日日出日落时间更换背景图功能
+    - 标记版本为 `v1.0.1`，待发布
