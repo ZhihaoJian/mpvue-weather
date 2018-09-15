@@ -1,33 +1,33 @@
 <template>
-  <div class='wrapper'  >
+  <div class='wrapper' :style="{'background-image': 'url(' + bgImg + ')' }" >
     <div v-if="hasData" >
       <div class='container' id='canvas-wrapper' >
         <!-- 实时天气模块 -->
         <!-- <canvas canvas-id='effect' id='effect' ></canvas> -->
         <now-weather 
-          :air='air' 
-          :now='now' 
+          :air='weatherData.air' 
+          :now='weatherData.now' 
           :address="address"
-          :dailyForcast="dailyForcast"
+          :dailyForcast="weatherData.dailyForcast"
           @changeWeather="handleChangeWeather"
         />
       </div>
       <div class='weather'>
         <div class='container'>
           <!-- 24小时天气 -->
-          <Hourly :hourlyData="hourlyData" />
+          <Hourly :hourlyData="weatherData.hourlyData" />
         </div>
         <div class='container'>
             <!-- 七天天气 -->
-            <week-weather :dailyForcast="dailyForcast" />
+            <week-weather :dailyForcast="weatherData.dailyForcast" />
         </div>
         <div class='container'>
             <!-- 生活指数 -->
-            <life-style :lifeStyle='lifeStyle'/>
+            <life-style :lifeStyle='weatherData.lifeStyle'/>
         </div>
       </div>
       <!-- 页脚 -->
-      <footer-component :updateTime='basic.update.loc' />
+      <footer-component :updateTime='weatherData.basic.update.loc' />
     </div>
   </div>  
 </template>
@@ -38,25 +38,34 @@ import Hourly from "./components/Hourly";
 import LifeStyle from "./components/LifeStyle";
 import WeekWeather from "./components/WeekWeather";
 import FooterComponent from "./components/Footer";
-import { getWeather, RainEffect } from "@/utils/weather";
-import { wx_getLocation, onShareAppMessage } from "@/utils/wx";
+import {
+  getWeather,
+  RainEffect,
+  wx_setStorage,
+  wx_getStorage
+} from "@/utils/weather";
+import {
+  wx_getLocation,
+  onShareAppMessage,
+  wx_showLoading,
+  wx_hideLoading
+} from "@/utils/wx";
 
 export default {
   name: "index",
   data() {
     return {
       address: "",
-      basic: {},
-      air: {},
-      now: {},
-      dailyForcast: [],
-      hourlyData: [],
-      lifeStyle: [],
       hasData: false,
-      dayBgImg:
-        "http://imglf1.ph.126.net/EVOVT1if0Jsi0gDDwwmx9A==/1795528876537542778.jpg",
-      nightBgImg:
-        "http://imglf1.ph.126.net/jTenCRi36IDvCu8hMmtBZw==/6608758674771048763.jpg"
+      bgImg: "",
+      weatherData: {
+        basic: {},
+        air: {},
+        now: {},
+        dailyForcast: [],
+        hourlyData: [],
+        lifeStyle: []
+      }
     };
   },
   components: {
@@ -82,12 +91,16 @@ export default {
         now,
         suggestion
       } = data;
-      this.now = now;
-      this.air = aqi;
-      this.basic = basic;
-      this.hourlyData = hourly_forecast;
-      this.dailyForcast = daily_forecast;
-      this.lifeStyle = suggestion;
+      const newData = {
+        air: aqi,
+        basic,
+        dailyForcast: daily_forecast,
+        hourlyData: hourly_forecast,
+        now,
+        lifeStyle: suggestion
+      };
+      this.weatherData = newData;
+      this.changeBackgroundByTime(daily_forecast[0].astro);
       this.hasData = true;
     },
     handleChangeWeather(data) {
@@ -101,11 +114,39 @@ export default {
         self.address = data.formatted_addresses.recommend;
         self.$store.dispatch("setGecoder", { lat, lng });
         getWeather(lat, lng).then(data => {
+          wx_showLoading("正在准备数据中...");
           self.updateWeatherData(data);
+          setTimeout(() => {
+            wx_hideLoading();
+          }, 1000);
         });
       });
 
       return this;
+    },
+    //根据日出日落时间更换背景
+    changeBackgroundByTime(astro) {
+      if (!astro || typeof astro !== "object") {
+        console.warn("astro should be a object");
+        return;
+      }
+      const date = new Date();
+      const { sr, ss } = astro;
+      const currentHour = date.getHours(),
+        bg = {
+          morning:
+            "https://lg-1vfjv3uu-1257634410.cos.ap-shanghai.myqcloud.com/morning.jpeg",
+          night:
+            "https://lg-1vfjv3uu-1257634410.cos.ap-shanghai.myqcloud.com/night.jpg"
+        };
+      const srHour = parseInt(sr.split(":")[0]),
+        ssHour = parseInt(ss.split(":")[0]),
+        ref = this.$refs.wrapper;
+      if (currentHour >= srHour && currentHour < ssHour) {
+        this.bgImg = bg.morning;
+      } else {
+        this.bgImg = bg.night;
+      }
     },
     //绘制雨天效果
     openEffect() {
@@ -154,10 +195,10 @@ export default {
 @import "../../assests/less/_variable.less";
 
 @bgColor: "#62aadc";
-@bgImg: "https://raw.githubusercontent.com/ksky521/fresh-weather/master/client/images/cloud.jpg";
+// @bgImg: "https://lg-1vfjv3uu-1257634410.cos.ap-shanghai.myqcloud.com/night.jpg";
 
 .wrapper {
-  background-image: url(@bgImg);
+  // background-image: url(@bgImg);
   background-position: center center;
   background-color: @bgColor;
   background-size: cover;

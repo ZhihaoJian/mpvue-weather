@@ -33,7 +33,7 @@ export function wx_getLocation(callback) {
                     callback({ data, lat: latitude, lng: longitude });
                 }
             });
-            wx_hideLoading();
+            // wx_hideLoading();
         },
         fail: function (e) {
             wx_showToast('定位失败');
