@@ -24,9 +24,7 @@
         <div class="tips">
             <p>天气太热了，吃个西瓜~</p>
         </div>
-        <div v-if="dailyForcast.length > 0" >
-          <two-days :df="dailyForcast" />
-        </div>
+        <two-days :df="dailyForcast" />
     </div>
 </template>
 

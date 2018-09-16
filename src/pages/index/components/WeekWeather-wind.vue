@@ -1,7 +1,7 @@
 <template>
     <div class="week-weather-wind" >
-        <div class="wind">{{item.wind.dir}}</div>
-        <div class="wind wind-sc " v-if="item.wind.sc" >{{item.wind.sc}}级</div>
+        <div class="wind">{{item.dir}}</div>
+        <div class="wind wind-sc " v-if="item.deg !== '-1'" >{{item.sc}}级</div>
         <div class="wind" v-else></div>
     </div>
 </template>
@@ -10,25 +10,8 @@
 import { wind, windLevel } from "@/utils/index";
 export default {
   name: "WeekWeatherWind",
-  props: ["item"],
-  data() {
-    return {
-      windStr: "",
-      windLevel: ""
-    };
-  },
-  methods: {
-    getWind() {
-      this.windStr = wind(this.item.wind.dir);
-      return this;
-    },
-    getWindLevel() {
-      this.windLevel = windLevel(this.item.wind.sc);
-      return this;
-    }
-  },
-  mounted() {
-    this.getWind().getWindLevel();
+  props: {
+    item: Object
   }
 };
 </script>
@@ -39,7 +22,7 @@ export default {
   display: flex;
   flex-direction: column;
 
-  .wind-sc{
+  .wind-sc {
     margin-top: 5px;
   }
 }

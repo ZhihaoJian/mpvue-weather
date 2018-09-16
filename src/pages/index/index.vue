@@ -135,7 +135,7 @@ export default {
       const { sr, ss } = astro,
         bg = {
           morning:
-            "https://lg-1vfjv3uu-1257634410.cos.ap-shanghai.myqcloud.com/morning.jpeg",
+            "https://lg-1vfjv3uu-1257634410.cos.ap-shanghai.myqcloud.com/pexels-photo-561463.jpeg",
           night:
             "https://lg-1vfjv3uu-1257634410.cos.ap-shanghai.myqcloud.com/night.jpg"
         };
@@ -195,7 +195,7 @@ export default {
 
 .wrapper {
   // background-image: url(@bgImg);
-  background-position: center center;
+  // background-position: center center;
   background-color: @bgColor;
   background-size: cover;
   min-height: 100vh;

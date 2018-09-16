@@ -13,9 +13,9 @@
                     <span class="logo"><text :class="'iconfont icon-' + item.nightIcon"/></span>
                     <div class="wt" >{{item.txt_n}}</div>
                 </div>
-                <week-weather-wind :item="item" />
+                <week-weather-wind :item="item.wind" />
             </div>
-            <div class="custom-chart" v-if="dailyForcast.length > 0" ><chart :weekData="dailyForcast" /></div> 
+            <div class="custom-chart" ><chart :weekData="dailyForcast" /></div> 
         </div>
     </div>    
 </template>
