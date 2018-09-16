@@ -39,7 +39,7 @@ export function formatWeeklyDate(index, week) {
   } else if (index === 2) {
     return '后天'
   } else {
-    return  formatDay(new Date(week).getDay());
+    return formatDay(new Date(week).getDay());
   }
 }
 
@@ -80,5 +80,30 @@ export function formatDate(time) {
 export function windLevel(wind) {
   if (wind) {
     return `${wind}级`;
+  }
+}
+
+export const SUNRISE = 'SUNRISE';
+export const SUNSET = 'SUNSET';
+
+/**
+ * 判断当前时间是日出还是日落
+ * @param {String} sunrise 日出时间 格式 'HH:mm'
+ * @param {String} sunset 日落时间 格式 'HH:mm'
+ */
+export function isSunriseOrSunset(sunrise, sunset) {
+
+  if (!sunrise || !sunset) {
+    throw new Error('Function isSunriseOrSunset expect two arguments.')
+  }
+
+  const hour = date.getHours(),
+    srHour = parseInt(sunrise.split(":")[0]),
+    ssHour = parseInt(sunset.split(":")[0]);
+
+  if (hour >= srHour && hour < ssHour) {
+    return SUNRISE
+  } else {
+    return SUNRISE;
   }
 }

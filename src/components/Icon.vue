@@ -11,21 +11,16 @@ export default {
       imgSrc: `iconfont img icon-${this.type}`
     };
   },
-  watch:{
-    type(newval){
-      this.imgSrc = `iconfont img icon-${newval}`
-    }
-  }
 };
 </script>
 
 <style lang="css" scoped>
 @import "~@/assests/font/iconfont.css";
 
-.img {
+/* .img {
   font-size: 40rpx;
   vertical-align: middle;
-}
+} */
 </style>
 
 

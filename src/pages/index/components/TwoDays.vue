@@ -8,7 +8,8 @@
             <div class="bottom">
                 <span>{{ today.cond.txt_d }}</span>
                 <!-- <span class="logo"  ><img :src="todayIcon" /> </span> -->
-                <span class="logo"> <icon :type='todayIcon' /> </span>
+                <!-- <span class="logo"> <icon :type='todayIcon' /> </span> -->
+                <span class="logo"> <text :class="'iconfont icon-'+todayIcon" /> </span>
             </div>
         </div>
         <div class="item">
@@ -19,7 +20,8 @@
             <div class="bottom">
                 <span>{{ tomorrow.cond.txt_d }}</span>
                 <!-- <span class="logo" ><img :src="tomorrowIcon" /> </span> -->
-                <span class="logo"><icon :type='tomorrowIcon' /></span>
+                <!-- <span class="logo"><icon :type='tomorrowIcon' /></span> -->
+                <span class="logo"><text :class="'iconfont icon-' + tomorrowIcon" /> </span>
             </div>
         </div>
     </div>
@@ -67,7 +69,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import '../../../assests/less/_variable.less';
+@import "../../../assests/less/_variable.less";
 
 // 今明两天天气
 .two-days {

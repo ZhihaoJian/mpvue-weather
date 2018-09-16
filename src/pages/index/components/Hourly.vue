@@ -4,7 +4,8 @@
             <div class="item" v-for="(item,index) of hd" :key="index" >
                 <span class="time">{{item.time}}</span>
                 <!-- <span class="logo"><img :src="item.icon" /> </span> -->
-                <span class="logo"><icon :type='item.icon' /> </span>
+                <!-- <span class="logo"><icon :type='item.icon' /> </span> -->
+                <span class="logo"><text :class="'iconfont icon-' + item.icon" /> </span>
                 <span class="temp">{{item.temp}}°</span>
             </div>
         </div>

@@ -38,6 +38,7 @@ import Hourly from "./components/Hourly";
 import LifeStyle from "./components/LifeStyle";
 import WeekWeather from "./components/WeekWeather";
 import FooterComponent from "./components/Footer";
+import { SUNRISE, SUNSET, isSunriseOrSunset } from "@/utils/index";
 import {
   getWeather,
   RainEffect,
@@ -131,22 +132,17 @@ export default {
         return;
       }
       const date = new Date();
-      const { sr, ss } = astro;
-      const currentHour = date.getHours(),
+      const { sr, ss } = astro,
         bg = {
           morning:
             "https://lg-1vfjv3uu-1257634410.cos.ap-shanghai.myqcloud.com/morning.jpeg",
           night:
             "https://lg-1vfjv3uu-1257634410.cos.ap-shanghai.myqcloud.com/night.jpg"
         };
-      const srHour = parseInt(sr.split(":")[0]),
-        ssHour = parseInt(ss.split(":")[0]),
-        ref = this.$refs.wrapper;
-      if (currentHour >= srHour && currentHour < ssHour) {
-        this.bgImg = bg.morning;
-      } else {
-        this.bgImg = bg.night;
-      }
+
+      isSunriseOrSunset(sr, ss) === SUNRISE
+        ? (this.bgImg = bg.morning)
+        : (this.bgImg = bg.night);
     },
     //绘制雨天效果
     openEffect() {

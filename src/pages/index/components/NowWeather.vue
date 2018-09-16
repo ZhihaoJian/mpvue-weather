@@ -13,8 +13,7 @@
         </div>
         <div class="cur-weather">
             <div class="line">
-                <!-- <span class="logo"  ><img :src="nowIcon" /></span>  -->
-                <span class="logo"><icon :type="nowIcon" /></span>
+                <span class="logo"><text :class="'iconfont icon-' + nowIcon"/></span>
                 <span>{{now.cond.txt}}</span>
             </div>
         </div>

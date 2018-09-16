@@ -7,12 +7,10 @@
                 <!-- <div>{{item.txt_d}}</div> -->
                 <div class="date-time">
                     <div class="wt">{{item.txt_d}}</div>
-                    <!-- <span class="logo"><img :src="item.dayIcon" /></span> -->
-                    <span class="logo"><icon :type='item.dayIcon' /></span>
+                    <span class="logo"><text :class="'iconfont icon-' + item.dayIcon" /> </span>
                 </div>
                 <div class="night">
-                    <!-- <span class="logo"><img :src="item.nightIcon" /></span> -->
-                    <span class="logo"><icon :type='item.nightIcon' /></span>
+                    <span class="logo"><text :class="'iconfont icon-' + item.nightIcon"/></span>
                     <div class="wt" >{{item.txt_n}}</div>
                 </div>
                 <week-weather-wind :item="item" />
