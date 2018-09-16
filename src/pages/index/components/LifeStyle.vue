@@ -103,15 +103,17 @@ export default {
     border-right: 2rpx solid rgba(255, 255, 255, 0.1);
     border-bottom: 2rpx solid rgba(255, 255, 255, 0.1);
     box-sizing: border-box;
-    padding: 50rpx 0 0;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
 
     .title {
       .ellipsis();
       color: #fff;
       opacity: 0.7;
       font-size: 24rpx;
-      height: 30rpx;
-      line-height: 30rpx;
+      height: 40rpx;
+      line-height: 40rpx;
       & > span:first-child {
         font-size: 22rpx;
         margin-right: 10rpx;
