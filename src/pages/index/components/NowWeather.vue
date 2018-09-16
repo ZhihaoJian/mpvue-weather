@@ -22,7 +22,7 @@
             <p class="item">{{now.wind.dir}} {{now.wind.sc}}级</p>
         </div>
         <div class="tips">
-            <p>天气太热了，吃个西瓜~</p>
+            <p>{{tips}}</p>
         </div>
         <two-days :df="dailyForcast" />
     </div>
@@ -49,7 +49,8 @@ export default {
       statusBarHeight: 0,
       nowIcon: "",
       humidity: "",
-      wind: ""
+      wind: "",
+      tips: ""
     };
   },
   components: {
@@ -72,6 +73,24 @@ export default {
       this.humidity = humidity(this.now.hum);
       return this;
     },
+    getTips() {
+      const tmp = parseInt(this.now.tmp);
+      if (tmp > 30) {
+        this.tips = "天气太热了，吃个西瓜~";
+      } else if (tmp >= 20 && tmp < 30) {
+        this.tips = "今天的天气十分舒适呢~";
+      } else if (tmp >= 15 && tmp < 20) {
+        this.tips = "注意添衣保暖";
+      } else if (tmp < 15) {
+        this.tips = "注意防寒";
+      }
+    },
+    init() {
+      this.getStatusHeaderBar()
+        .getNowWeatherIcon()
+        .getHumidity()
+        .getTips();
+    },
     //  修正顶部定位的自适应
     getStatusHeaderBar() {
       const self = this;
@@ -85,9 +104,10 @@ export default {
     }
   },
   mounted() {
-    this.getStatusHeaderBar()
-      .getNowWeatherIcon()
-      .getHumidity();
+    // this.getStatusHeaderBar()
+    //   .getNowWeatherIcon()
+    //   .getHumidity();
+    this.init();
   }
 };
 </script>
@@ -159,7 +179,7 @@ export default {
       &:first-child {
         margin-right: 8rpx;
       }
-      &:last-child{
+      &:last-child {
         vertical-align: bottom;
         height: 100%;
       }
