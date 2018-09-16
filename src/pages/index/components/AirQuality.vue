@@ -1,5 +1,5 @@
 <template>
-    <div class="air-quality" v-if="air.city.aqi" >
+    <div class="air-quality" >
         <span class="circle" :style="{backgroundColor:airColor}" ></span>
         <span class="value">{{air.city.qlty}} {{air.city.aqi}}</span>
     </div>
