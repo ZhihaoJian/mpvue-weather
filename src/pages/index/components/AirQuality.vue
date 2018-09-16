@@ -1,6 +1,6 @@
 <template>
-    <div class="air-quality" v-if="air.city.aqi" >
-        <span class="circle" :style="{backgroundColor:aqiColor}" ></span>
+    <div class="air-quality">
+        <span class="circle" :style="{backgroundColor:airColor}" ></span>
         <span class="value">{{air.city.qlty}} {{air.city.aqi}}</span>
     </div>
 </template>
@@ -10,18 +10,17 @@
 export default {
   name: "AirQuality",
   props: {
-    air: Object,
-    aqiColor: ""
+    air: Object
   },
   computed: {
     airColor() {
       const aqi = this.air.city.aqi;
       if (aqi >= 0 && aqi <= 50) {
-        this.aqiColor = "#02cb9a";
+        return '#02cb9a';
       } else if (aqi > 50 && aqi <= 100) {
-        this.aqiColor = "#90EE90";
+        return '#90EE90';
       } else {
-        this.aqiColor = "#FF4500";
+        return '#FF4500'
       }
     }
   }
