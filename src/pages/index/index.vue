@@ -139,7 +139,6 @@ export default {
           night:
             "https://lg-1vfjv3uu-1257634410.cos.ap-shanghai.myqcloud.com/night.jpg"
         };
-
       isSunriseOrSunset(sr, ss) === SUNRISE
         ? (this.bgImg = bg.morning)
         : (this.bgImg = bg.night);

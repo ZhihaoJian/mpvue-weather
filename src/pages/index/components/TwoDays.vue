@@ -59,9 +59,6 @@ export default {
       this.getWeatherIcon();
     }
   },
-  mounted() {
-    this.getWeatherIcon();
-  },
   components: {
     Icon
   }

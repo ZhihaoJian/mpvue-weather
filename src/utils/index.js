@@ -104,6 +104,6 @@ export function isSunriseOrSunset(sunrise, sunset) {
   if (hour >= srHour && hour < ssHour) {
     return SUNRISE
   } else {
-    return SUNRISE;
+    return SUNSET;
   }
 }
